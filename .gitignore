@@ -37,4 +37,4 @@ out/
 ##############################
 .DS_Store
 
-src/main/resources/application*.properties.local
+/src/main/resources/application.properties
