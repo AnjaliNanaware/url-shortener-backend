@@ -30,12 +30,17 @@ public class UserService {
     }
 
     public JwtAuthenticationResponse authenticateUser(LoginRequest loginRequest){
+        //Authentication
         Authentication authentication=authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                         loginRequest.getPassword()));
 
+        //Spring Security construct will hold the authentication data for current session or entire request
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         UserDetailsImpl userDetails= (UserDetailsImpl) authentication.getPrincipal();
+
+        //Generating token
         String jwt=jwtUtils.generateToken(userDetails);
 
         return new JwtAuthenticationResponse(jwt);
